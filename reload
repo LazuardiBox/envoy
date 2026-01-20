@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 CONFIG="/app/envoy/config/envoy.yaml"
-ENVOY_BIN="/usr/bin/envoy"
 SERVICE="envoy"
 
 echo "🔍 Validating Envoy config..."
-$ENVOY_BIN --mode validate -c "$CONFIG"
+envoy --mode validate -c "$CONFIG"
 
-echo "✅ Config valid. Reloading Envoy..."
-sudo systemctl reload "$SERVICE"
+echo "♻️ Restarting Envoy service..."
+sudo systemctl reset-failed "$SERVICE"
+sudo systemctl restart "$SERVICE"
 
-echo "🚀 Envoy reloaded successfully."
+echo "📊 Envoy service status:"
+systemctl status "$SERVICE" --no-pager

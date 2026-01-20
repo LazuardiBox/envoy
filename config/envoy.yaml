@@ -32,41 +32,12 @@ static_resources:
                       filename: /app/envoy/cert/toefl.wiki/server.key
 
           filters:
-            - name: envoy.filters.network.rbac
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC
-                stat_prefix: rbac_toefl
-                rules:
-                  action: ALLOW
-                  policies:
-                    cloudflare_ipv4:
-                      permissions:
-                        - any: true
-                      principals:
-                        - direct_remote_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
-                        - direct_remote_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
-                        - direct_remote_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
-                        - direct_remote_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
-                        - direct_remote_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
-                        - direct_remote_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
-                        - direct_remote_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
-                        - direct_remote_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
-
             - name: envoy.filters.network.http_connection_manager
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 stat_prefix: toefl_https
                 use_remote_address: true
                 xff_num_trusted_hops: 1
-                common_http_protocol_options:
-                  idle_timeout: 300s
 
                 route_config:
                   name: toefl_routes
@@ -75,19 +46,25 @@ static_resources:
                       domains: ["auth-server.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: auth_server_toefl_backend }
+                          route:
+                            cluster: auth_server_toefl_backend
+                            host_rewrite_literal: 127.0.0.1
 
                     - name: my_toefl
                       domains: ["my.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: my_toefl_backend }
+                          route:
+                            cluster: my_toefl_backend
+                            host_rewrite_literal: 127.0.0.1
 
                     - name: app_toefl
                       domains: ["app.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: app_toefl_backend }
+                          route:
+                            cluster: app_toefl_backend
+                            host_rewrite_literal: 127.0.0.1
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
@@ -121,41 +98,12 @@ static_resources:
                       filename: /app/envoy/cert/cpns.app/server.key
 
           filters:
-            - name: envoy.filters.network.rbac
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC
-                stat_prefix: rbac_cpns
-                rules:
-                  action: ALLOW
-                  policies:
-                    cloudflare_ipv4:
-                      permissions:
-                        - any: true
-                      principals:
-                        - direct_remote_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
-                        - direct_remote_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
-                        - direct_remote_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
-                        - direct_remote_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
-                        - direct_remote_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
-                        - direct_remote_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
-                        - direct_remote_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
-                        - direct_remote_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
-                        - direct_remote_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
-                        - direct_remote_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
-
             - name: envoy.filters.network.http_connection_manager
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 stat_prefix: cpns_https
                 use_remote_address: true
                 xff_num_trusted_hops: 1
-                common_http_protocol_options:
-                  idle_timeout: 300s
 
                 route_config:
                   name: cpns_routes
@@ -164,19 +112,25 @@ static_resources:
                       domains: ["auth-server.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: auth_server_cpns_backend }
+                          route:
+                            cluster: auth_server_cpns_backend
+                            host_rewrite_literal: 127.0.0.1
 
                     - name: my_cpns
                       domains: ["my.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: my_cpns_backend }
+                          route:
+                            cluster: my_cpns_backend
+                            host_rewrite_literal: 127.0.0.1
 
                     - name: platform_cpns
                       domains: ["platform.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
-                          route: { cluster: platform_cpns_backend }
+                          route:
+                            cluster: platform_cpns_backend
+                            host_rewrite_literal: 127.0.0.1
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
@@ -191,37 +145,13 @@ static_resources:
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
-        ########################################################
-        # FALLBACK — NO RBAC
-        ########################################################
-          filters:
-            - name: envoy.filters.network.http_connection_manager
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-                stat_prefix: https_fallback
-                route_config:
-                  name: fallback_routes
-                  virtual_hosts:
-                    - name: fallback
-                      domains: ["*"]
-                      routes:
-                        - match: { prefix: "/" }
-                          direct_response:
-                            status: 404
-                            body:
-                              inline_string: "Unknown domain"
-                http_filters:
-                  - name: envoy.filters.http.router
-                    typed_config:
-                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
-
   ############################################################
-  # CLUSTERS (UNCHANGED)
+  # CLUSTERS — STATIC + REQUIRED cluster_name
   ############################################################
   clusters:
     - name: auth_server_toefl_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: auth_server_toefl_backend
@@ -230,12 +160,12 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: auth-server-toefl.internal
-                      port_value: 3000
+                      address: 127.0.0.1
+                      port_value: 8080
 
     - name: my_toefl_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: my_toefl_backend
@@ -244,12 +174,12 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: my-toefl.internal
+                      address: 127.0.0.1
                       port_value: 3001
 
     - name: app_toefl_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: app_toefl_backend
@@ -258,12 +188,12 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: app-toefl.internal
+                      address: 127.0.0.1
                       port_value: 3002
 
     - name: auth_server_cpns_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: auth_server_cpns_backend
@@ -272,12 +202,12 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: auth-server-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3003
 
     - name: my_cpns_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: my_cpns_backend
@@ -286,12 +216,12 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: my-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3004
 
     - name: platform_cpns_backend
       connect_timeout: 5s
-      type: logical_dns
+      type: static
       lb_policy: round_robin
       load_assignment:
         cluster_name: platform_cpns_backend
@@ -300,5 +230,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: platform-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3005
