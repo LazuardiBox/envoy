@@ -27,9 +27,9 @@ static_resources:
                 alpn_protocols: ["h2", "http/1.1"]
                 tls_certificates:
                   - certificate_chain:
-                      filename: /app/envoy/cert/_wildcard_toefl.wiki/tls.crt
+                      filename: /app/envoy/cert/toefl.wiki/server.pem
                     private_key:
-                      filename: /app/envoy/cert/_wildcard_toefl.wiki/tls.key
+                      filename: /app/envoy/cert/toefl.wiki/server.key
 
           filters:
             - name: envoy.filters.network.rbac
@@ -76,33 +76,18 @@ static_resources:
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: auth_server_toefl_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/auth-server.toefl.wiki.access.log
 
                     - name: my_toefl
                       domains: ["my.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: my_toefl_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/my.toefl.wiki.access.log
 
                     - name: app_toefl
                       domains: ["app.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: app_toefl_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/app.toefl.wiki.access.log
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
@@ -129,9 +114,9 @@ static_resources:
                 alpn_protocols: ["h2", "http/1.1"]
                 tls_certificates:
                   - certificate_chain:
-                      filename: /app/envoy/cert/_wildcard_cpns.app/tls.crt
+                      filename: /app/envoy/cert/cpns.app/server.pem
                     private_key:
-                      filename: /app/envoy/cert/_wildcard_cpns.app/tls.key
+                      filename: /app/envoy/cert/cpns.app/server.key
 
           filters:
             - name: envoy.filters.network.rbac
@@ -178,33 +163,18 @@ static_resources:
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: auth_server_cpns_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/auth-server.cpns.app.access.log
 
                     - name: my_cpns
                       domains: ["my.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: my_cpns_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/my.cpns.app.access.log
 
                     - name: platform_cpns
                       domains: ["platform.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
                           route: { cluster: platform_cpns_backend }
-                      access_log:
-                        - name: envoy.access_loggers.file
-                          typed_config:
-                            "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
-                            path: /app/envoy/logs/platform.cpns.app.access.log
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
