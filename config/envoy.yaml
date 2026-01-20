@@ -43,21 +43,21 @@ static_resources:
                       permissions:
                         - any: true
                       principals:
-                        - source_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
-                        - source_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
-                        - source_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
-                        - source_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
-                        - source_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
-                        - source_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
-                        - source_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
-                        - source_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
+                        - direct_remote_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
+                        - direct_remote_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
+                        - direct_remote_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
+                        - direct_remote_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
+                        - direct_remote_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
+                        - direct_remote_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
+                        - direct_remote_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
 
             - name: envoy.filters.network.http_connection_manager
               typed_config:
@@ -132,21 +132,21 @@ static_resources:
                       permissions:
                         - any: true
                       principals:
-                        - source_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
-                        - source_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
-                        - source_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
-                        - source_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
-                        - source_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
-                        - source_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
-                        - source_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
-                        - source_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
-                        - source_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
-                        - source_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 173.245.48.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 103.21.244.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 103.22.200.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 103.31.4.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 141.101.64.0, prefix_len: 18 }
+                        - direct_remote_ip: { address_prefix: 108.162.192.0, prefix_len: 18 }
+                        - direct_remote_ip: { address_prefix: 190.93.240.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 188.114.96.0, prefix_len: 20 }
+                        - direct_remote_ip: { address_prefix: 197.234.240.0, prefix_len: 22 }
+                        - direct_remote_ip: { address_prefix: 198.41.128.0, prefix_len: 17 }
+                        - direct_remote_ip: { address_prefix: 162.158.0.0, prefix_len: 15 }
+                        - direct_remote_ip: { address_prefix: 104.16.0.0, prefix_len: 13 }
+                        - direct_remote_ip: { address_prefix: 104.24.0.0, prefix_len: 14 }
+                        - direct_remote_ip: { address_prefix: 172.64.0.0, prefix_len: 13 }
+                        - direct_remote_ip: { address_prefix: 131.0.72.0, prefix_len: 22 }
 
             - name: envoy.filters.network.http_connection_manager
               typed_config:
@@ -194,18 +194,6 @@ static_resources:
         ########################################################
         # FALLBACK — NO RBAC
         ########################################################
-        - transport_socket:
-            name: envoy.transport_sockets.tls
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
-              common_tls_context:
-                alpn_protocols: ["h2", "http/1.1"]
-                tls_certificates:
-                  - certificate_chain:
-                      filename: /app/envoy/cert/_fallback/tls.crt
-                    private_key:
-                      filename: /app/envoy/cert/_fallback/tls.key
-
           filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
@@ -242,7 +230,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: auth-server-toefl.internal
                       port_value: 3000
 
     - name: my_toefl_backend
@@ -256,7 +244,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: my-toefl.internal
                       port_value: 3001
 
     - name: app_toefl_backend
@@ -270,7 +258,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: app-toefl.internal
                       port_value: 3002
 
     - name: auth_server_cpns_backend
@@ -284,7 +272,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: auth-server-cpns.internal
                       port_value: 3003
 
     - name: my_cpns_backend
@@ -298,7 +286,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: my-cpns.internal
                       port_value: 3004
 
     - name: platform_cpns_backend
@@ -312,5 +300,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: platform-cpns.internal
                       port_value: 3005
