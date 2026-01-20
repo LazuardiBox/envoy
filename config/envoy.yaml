@@ -99,6 +99,8 @@ static_resources:
                         tokens_per_fill: 50
                         fill_interval: 1s
                   - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
         ########################################################
         # *.cpns.app
@@ -186,6 +188,8 @@ static_resources:
                         tokens_per_fill: 50
                         fill_interval: 1s
                   - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
         ########################################################
         # FALLBACK — NO RBAC
@@ -220,6 +224,8 @@ static_resources:
                               inline_string: "Unknown domain"
                 http_filters:
                   - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   ############################################################
   # CLUSTERS (UNCHANGED)
@@ -230,12 +236,13 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: auth_server_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: auth-server-toefl.internal
+                      address: 127.0.0.1
                       port_value: 3000
 
     - name: my_toefl_backend
@@ -243,12 +250,13 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: my_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: my-toefl.internal
+                      address: 127.0.0.1
                       port_value: 3001
 
     - name: app_toefl_backend
@@ -256,12 +264,13 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: app_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: app-toefl.internal
+                      address: 127.0.0.1
                       port_value: 3002
 
     - name: auth_server_cpns_backend
@@ -269,12 +278,13 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: auth_server_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: auth-server-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3003
 
     - name: my_cpns_backend
@@ -282,12 +292,13 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: my_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: my-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3004
 
     - name: platform_cpns_backend
@@ -295,10 +306,11 @@ static_resources:
       type: logical_dns
       lb_policy: round_robin
       load_assignment:
+        cluster_name: platform_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: platform-cpns.internal
+                      address: 127.0.0.1
                       port_value: 3005
