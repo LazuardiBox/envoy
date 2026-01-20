@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+CONFIG="/app/envoy/config/envoy.yaml"
+ENVOY_BIN="/usr/bin/envoy"
+SERVICE="envoy"
+
+echo "🔍 Validating Envoy config..."
+$ENVOY_BIN --mode validate -c "$CONFIG"
+
+echo "✅ Config valid. Reloading Envoy..."
+sudo systemctl reload "$SERVICE"
+
+echo "🚀 Envoy reloaded successfully."
