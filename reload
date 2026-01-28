@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG="/app/envoy/config/envoy.yaml"
+CONFIG="/etc/envoy/config/envoy.yaml"
 SERVICE="envoy"
 
 echo "🔍 Validating Envoy config..."
