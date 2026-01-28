@@ -27,9 +27,9 @@ static_resources:
                 alpn_protocols: ["h2", "http/1.1"]
                 tls_certificates:
                   - certificate_chain:
-                      filename: /app/envoy/cert/toefl.wiki/server.pem
+                      filename: /etc/envoy/cert/toefl.wiki/server.pem
                     private_key:
-                      filename: /app/envoy/cert/toefl.wiki/server.key
+                      filename: /etc/envoy/cert/toefl.wiki/server.key
 
           filters:
             - name: envoy.filters.network.http_connection_manager
@@ -109,9 +109,9 @@ static_resources:
                 alpn_protocols: ["h2", "http/1.1"]
                 tls_certificates:
                   - certificate_chain:
-                      filename: /app/envoy/cert/cpns.app/server.pem
+                      filename: /etc/envoy/cert/cpns.app/server.pem
                     private_key:
-                      filename: /app/envoy/cert/cpns.app/server.key
+                      filename: /etc/envoy/cert/cpns.app/server.key
 
           filters:
             - name: envoy.filters.network.http_connection_manager
