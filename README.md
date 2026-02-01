@@ -18,15 +18,15 @@ graph TD
     end
 
     subgraph "Services (Localhost)"
-        TOEFL_Group -->|auth-server| Port4001[Auth API :4001]
-        TOEFL_Group -->|auth-static| Port4002[Auth Static (Caddy) :4002]
-        TOEFL_Group -->|platform-server| Port4003[Platform API :4003]
-        TOEFL_Group -->|platform-static| Port4004[Platform Static (Caddy) :4004]
+        TOEFL_Group -->|auth-server| Port4001["Auth API :4001"]
+        TOEFL_Group -->|auth-static| Port4002["Auth Static (Caddy) :4002"]
+        TOEFL_Group -->|platform-server| Port4003["Platform API :4003"]
+        TOEFL_Group -->|platform-static| Port4004["Platform Static (Caddy) :4004"]
 
-        CPNS_Group -->|auth-server| Port5001[Auth API :5001]
-        CPNS_Group -->|auth-static| Port5002[Auth Static (Caddy) :5002]
-        CPNS_Group -->|platform-server| Port5003[Platform API :5003]
-        CPNS_Group -->|platform-static| Port5004[Platform Static (Caddy) :5004]
+        CPNS_Group -->|auth-server| Port5001["Auth API :5001"]
+        CPNS_Group -->|auth-static| Port5002["Auth Static (Caddy) :5002"]
+        CPNS_Group -->|platform-server| Port5003["Platform API :5003"]
+        CPNS_Group -->|platform-static| Port5004["Platform Static (Caddy) :5004"]
     end
 ```
 
