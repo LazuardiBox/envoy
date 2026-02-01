@@ -50,36 +50,28 @@ static_resources:
                             cluster: auth_server_toefl_backend
                             host_rewrite_literal: 127.0.0.1
 
-                    - name: my_toefl
-                      domains: ["my.toefl.wiki"]
-                      routes:
-                        - match: { prefix: "/" }
-                          route:
-                            cluster: my_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
-
-                    - name: app_toefl
-                      domains: ["app.toefl.wiki"]
-                      routes:
-                        - match: { prefix: "/" }
-                          route:
-                            cluster: app_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
-
-                    - name: static_auth_toefl
+                    - name: auth_static_toefl
                       domains: ["auth.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
                           route:
-                            cluster: static_auth_toefl_backend
+                            cluster: auth_static_toefl_backend
                             host_rewrite_literal: 127.0.0.1
 
-                    - name: static_root_toefl
-                      domains: ["toefl.wiki"]
+                    - name: platform_server_toefl
+                      domains: ["platform-server.toefl.wiki"]
                       routes:
                         - match: { prefix: "/" }
                           route:
-                            cluster: static_root_toefl_backend
+                            cluster: platform_server_toefl_backend
+                            host_rewrite_literal: 127.0.0.1
+
+                    - name: platform_static_toefl
+                      domains: ["platform.toefl.wiki"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route:
+                            cluster: platform_static_toefl_backend
                             host_rewrite_literal: 127.0.0.1
 
                 http_filters:
@@ -132,36 +124,28 @@ static_resources:
                             cluster: auth_server_cpns_backend
                             host_rewrite_literal: 127.0.0.1
 
-                    - name: my_cpns
-                      domains: ["my.cpns.app"]
-                      routes:
-                        - match: { prefix: "/" }
-                          route:
-                            cluster: my_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
-
-                    - name: platform_cpns
-                      domains: ["platform.cpns.app"]
-                      routes:
-                        - match: { prefix: "/" }
-                          route:
-                            cluster: platform_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
-
-                    - name: static_auth_cpns
+                    - name: auth_static_cpns
                       domains: ["auth.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
                           route:
-                            cluster: static_auth_cpns_backend
+                            cluster: auth_static_cpns_backend
                             host_rewrite_literal: 127.0.0.1
 
-                    - name: static_root_cpns
-                      domains: ["cpns.app"]
+                    - name: platform_server_cpns
+                      domains: ["platform-server.cpns.app"]
                       routes:
                         - match: { prefix: "/" }
                           route:
-                            cluster: static_root_cpns_backend
+                            cluster: platform_server_cpns_backend
+                            host_rewrite_literal: 127.0.0.1
+
+                    - name: platform_static_cpns
+                      domains: ["platform.cpns.app"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route:
+                            cluster: platform_static_cpns_backend
                             host_rewrite_literal: 127.0.0.1
 
                 http_filters:
@@ -181,6 +165,9 @@ static_resources:
   # CLUSTERS — STATIC + REQUIRED cluster_name
   ############################################################
   clusters:
+    # ----------------------------------------------------------
+    # TOEFL CLUSTERS
+    # ----------------------------------------------------------
     - name: auth_server_toefl_backend
       connect_timeout: 5s
       type: static
@@ -193,28 +180,14 @@ static_resources:
                   address:
                     socket_address:
                       address: 127.0.0.1
-                      port_value: 4000
-
-    - name: my_toefl_backend
-      connect_timeout: 5s
-      type: static
-      lb_policy: round_robin
-      load_assignment:
-        cluster_name: my_toefl_backend
-        endpoints:
-          - lb_endpoints:
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: 127.0.0.1
                       port_value: 4001
 
-    - name: app_toefl_backend
+    - name: auth_static_toefl_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: app_toefl_backend
+        cluster_name: auth_static_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -223,12 +196,12 @@ static_resources:
                       address: 127.0.0.1
                       port_value: 4002
 
-    - name: static_auth_toefl_backend
+    - name: platform_server_toefl_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: static_auth_toefl_backend
+        cluster_name: platform_server_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -237,12 +210,12 @@ static_resources:
                       address: 127.0.0.1
                       port_value: 4003
 
-    - name: static_root_toefl_backend
+    - name: platform_static_toefl_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: static_root_toefl_backend
+        cluster_name: platform_static_toefl_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -251,6 +224,9 @@ static_resources:
                       address: 127.0.0.1
                       port_value: 4004
 
+    # ----------------------------------------------------------
+    # CPNS CLUSTERS
+    # ----------------------------------------------------------
     - name: auth_server_cpns_backend
       connect_timeout: 5s
       type: static
@@ -263,28 +239,14 @@ static_resources:
                   address:
                     socket_address:
                       address: 127.0.0.1
-                      port_value: 5000
-
-    - name: my_cpns_backend
-      connect_timeout: 5s
-      type: static
-      lb_policy: round_robin
-      load_assignment:
-        cluster_name: my_cpns_backend
-        endpoints:
-          - lb_endpoints:
-              - endpoint:
-                  address:
-                    socket_address:
-                      address: 127.0.0.1
                       port_value: 5001
 
-    - name: platform_cpns_backend
+    - name: auth_static_cpns_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: platform_cpns_backend
+        cluster_name: auth_static_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -292,13 +254,13 @@ static_resources:
                     socket_address:
                       address: 127.0.0.1
                       port_value: 5002
-        
-    - name: static_auth_cpns_backend
+
+    - name: platform_server_cpns_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: static_auth_cpns_backend
+        cluster_name: platform_server_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:
@@ -307,12 +269,12 @@ static_resources:
                       address: 127.0.0.1
                       port_value: 5003
 
-    - name: static_root_cpns_backend
+    - name: platform_static_cpns_backend
       connect_timeout: 5s
       type: static
       lb_policy: round_robin
       load_assignment:
-        cluster_name: static_root_cpns_backend
+        cluster_name: platform_static_cpns_backend
         endpoints:
           - lb_endpoints:
               - endpoint:

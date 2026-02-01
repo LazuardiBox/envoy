@@ -1,4 +1,9 @@
-127.0.0.1:4003 {
+// ----------------------------------------------------------
+// TOEFL
+// ----------------------------------------------------------
+
+// Auth Static
+127.0.0.1:4002 {
     root * /var/www/toefl/auth
 
     encode gzip
@@ -10,8 +15,9 @@
     file_server
 }
 
+// Platform Static
 127.0.0.1:4004 {
-    root * /var/www/toefl/root
+    root * /var/www/toefl/platform
 
     encode gzip
 
@@ -22,7 +28,12 @@
     file_server
 }
 
-127.0.0.1:5003 {
+// ----------------------------------------------------------
+// CPNS
+// ----------------------------------------------------------
+
+// Auth Static
+127.0.0.1:5002 {
     root * /var/www/cpns/auth
 
     encode gzip
@@ -34,9 +45,9 @@
     file_server
 }
 
-
+// Platform Static
 127.0.0.1:5004 {
-    root * /var/www/cpns/root
+    root * /var/www/cpns/platform
 
     encode gzip
 
