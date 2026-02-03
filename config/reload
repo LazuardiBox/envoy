@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ENVOY_BIN="/usr/local/bin/envoy"
+CONFIG="/etc/envoy/envoy.yaml"
+PID_FILE="/var/run/envoy.pid"
+LOG_LEVEL="info"
+
+echo "🔍 Validating Envoy config: $CONFIG"
+
+if ! $ENVOY_BIN --mode validate -c "$CONFIG"; then
+  echo "❌ Envoy config validation failed. Reload aborted."
+  exit 1
+fi
+
+echo "✅ Config valid"
+
+if [[ ! -f "$PID_FILE" ]]; then
+  echo "❌ PID file not found: $PID_FILE"
+  exit 1
+fi
+
+OLD_PID=$(cat "$PID_FILE")
+
+echo "🔁 Reloading Envoy (hot restart)..."
+
+$ENVOY_BIN \
+  -c "$CONFIG" \
+  --log-level "$LOG_LEVEL" \
+  --restart-epoch 1 \
+  --parent-shutdown-time-s 10 \
+  --drain-time-s 10 \
+  --pid-file "$PID_FILE" \
+  &
+
+sleep 1
+
+NEW_PID=$(cat "$PID_FILE")
+
+if [[ "$OLD_PID" == "$NEW_PID" ]]; then
+  echo "❌ Reload failed (PID did not change)"
+  exit 1
+fi
+
+echo "🎉 Envoy reloaded successfully"
+echo "Old PID: $OLD_PID"
+echo "New PID: $NEW_PID"
