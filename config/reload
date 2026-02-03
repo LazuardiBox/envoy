@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-envoy --mode validate -c /etc/envoy/config/envoy.yaml
-systemctl reload envoy

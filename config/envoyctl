@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SERVICE="envoy"
+CONFIG="/etc/envoy/config/envoy.yaml"
+
+usage() {
+  cat <<EOF
+Usage: $0 {start|stop|reload|status}
+
+Commands:
+  start   Start Envoy via systemd
+  stop    Stop Envoy via systemd
+  reload  Validate config and reload Envoy
+  status  Show Envoy service status
+EOF
+  exit 1
+}
+
+validate() {
+  echo "🔍 Validating Envoy config: $CONFIG"
+  envoy --mode validate -c "$CONFIG"
+}
+
+case "${1:-}" in
+  start)
+    echo "▶️  Starting Envoy"
+    systemctl start "$SERVICE"
+    ;;
+  stop)
+    echo "⏹  Stopping Envoy"
+    systemctl stop "$SERVICE"
+    ;;
+  reload)
+    validate
+    echo "🔁 Reloading Envoy"
+    systemctl reload "$SERVICE"
+    ;;
+  status)
+    systemctl status "$SERVICE" --no-pager
+    ;;
+  *)
+    usage
+    ;;
+esac
