@@ -2,7 +2,7 @@ static_resources:
   listeners:
 
     ########################################################
-    # HTTP → HTTPS REDIRECT (REQUIRED)
+    # HTTP → HTTPS REDIRECT
     ########################################################
     - name: http_redirect_listener
       address:
@@ -81,7 +81,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: auth_server_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: auth-server.toefl.wiki
 
                     - name: auth_static_toefl
                       domains: ["auth.toefl.wiki"]
@@ -89,7 +89,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: auth_static_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: auth.toefl.wiki
 
                     - name: platform_server_toefl
                       domains: ["platform-server.toefl.wiki"]
@@ -97,7 +97,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: platform_server_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: platform-server.toefl.wiki
 
                     - name: platform_static_toefl
                       domains: ["platform.toefl.wiki"]
@@ -105,7 +105,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: platform_static_toefl_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: platform.toefl.wiki
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
@@ -155,7 +155,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: auth_server_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: auth-server.cpns.app
 
                     - name: auth_static_cpns
                       domains: ["auth.cpns.app"]
@@ -163,7 +163,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: auth_static_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: auth.cpns.app
 
                     - name: platform_server_cpns
                       domains: ["platform-server.cpns.app"]
@@ -171,7 +171,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: platform_server_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: platform-server.cpns.app
 
                     - name: platform_static_cpns
                       domains: ["platform.cpns.app"]
@@ -179,7 +179,7 @@ static_resources:
                         - match: { prefix: "/" }
                           route:
                             cluster: platform_static_cpns_backend
-                            host_rewrite_literal: 127.0.0.1
+                            host_rewrite_literal: platform.cpns.app
 
                 http_filters:
                   - name: envoy.filters.http.local_ratelimit
