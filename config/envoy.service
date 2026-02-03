@@ -1,0 +1,16 @@
+[Service]
+User=root
+Group=root
+WorkingDirectory=/etc/envoy
+
+ExecStart=/usr/bin/envoy \
+  -c /etc/envoy/config/envoy.yaml \
+  --log-level info
+
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Removed restrictive privileges to run as root seamlessly
+PrivateTmp=true
+ReadWritePaths=/etc/envoy
+
+Restart=always
