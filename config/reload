@@ -2,14 +2,19 @@
 
 set -euo pipefail
 
-ENVOY_BIN="/usr/local/bin/envoy"
+ENVOY_BIN="/usr/bin/envoy"
 CONFIG="/etc/envoy/envoy.yaml"
 PID_FILE="/var/run/envoy.pid"
 LOG_LEVEL="info"
 
+if [[ ! -x "$ENVOY_BIN" ]]; then
+  echo "❌ Envoy binary not executable: $ENVOY_BIN"
+  exit 1
+fi
+
 echo "🔍 Validating Envoy config: $CONFIG"
 
-if ! $ENVOY_BIN --mode validate -c "$CONFIG"; then
+if ! "$ENVOY_BIN" --mode validate -c "$CONFIG"; then
   echo "❌ Envoy config validation failed. Reload aborted."
   exit 1
 fi
@@ -25,7 +30,7 @@ OLD_PID=$(cat "$PID_FILE")
 
 echo "🔁 Reloading Envoy (hot restart)..."
 
-$ENVOY_BIN \
+"$ENVOY_BIN" \
   -c "$CONFIG" \
   --log-level "$LOG_LEVEL" \
   --restart-epoch 1 \
