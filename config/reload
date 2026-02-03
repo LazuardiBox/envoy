@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ENVOY_BIN="/usr/bin/envoy"
-CONFIG="/etc/envoy/envoy.yaml"
+CONFIG="/etc/envoy/config/envoy.yaml"
 PID_FILE="/var/run/envoy.pid"
 LOG_LEVEL="info"
 
